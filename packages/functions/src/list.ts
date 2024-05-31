@@ -10,7 +10,7 @@ async function listNotes(event: APIGatewayProxyEventV2) {
     },
   })
 
-  return JSON.stringify(response.Items)
+  return JSON.stringify([12345678910])
 }
 
 export const main = handler(listNotes)
