@@ -1,10 +1,10 @@
-import type { APIGatewayProxyEventV2 } from 'aws-lambda'
+import type { APIGatewayProxyEvent } from 'aws-lambda'
 import { getItem } from "@notes/core/dynamodb"
 import handler from "@notes/core/handler"
 
-async function getNote(event: APIGatewayProxyEventV2) {
+async function getNote(event: APIGatewayProxyEvent) {
   const response = await getItem({
-    userId: '123',
+    userId: event.requestContext.authorizer?.iam.cognitoIdentity.identityId,
     noteId: event.pathParameters?.id
   })
 

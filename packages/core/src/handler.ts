@@ -1,7 +1,7 @@
-import { APIGatewayProxyEventV2, Context } from "aws-lambda"
+import { APIGatewayProxyEvent, Context } from "aws-lambda"
 
-export default function handler(lambda: (event: APIGatewayProxyEventV2, context: Context) => Promise<string>) {
-  return async function (event: APIGatewayProxyEventV2, context: Context) {
+export default function handler(lambda: (event: APIGatewayProxyEvent, context: Context) => Promise<string>) {
+  return async function (event: APIGatewayProxyEvent, context: Context) {
     let body, statusCode
 
     try {

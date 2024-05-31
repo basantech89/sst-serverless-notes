@@ -1,16 +1,16 @@
-import type { APIGatewayProxyEventV2 } from 'aws-lambda'
+import type { APIGatewayProxyEvent } from 'aws-lambda'
 import { listItems } from "@notes/core/dynamodb"
 import handler from "@notes/core/handler"
 
-async function listNotes(event: APIGatewayProxyEventV2) {
+async function listNotes(event: APIGatewayProxyEvent) {  
   const response = await listItems({
     KeyConditionExpression: 'userId = :userId',
     ExpressionAttributeValues: {
-      ':userId': '123'
+      ':userId': event.requestContext.authorizer?.iam.cognitoIdentity.identityId
     },
   })
 
-  return JSON.stringify([12345678910])
+  return JSON.stringify(response)
 }
 
 export const main = handler(listNotes)

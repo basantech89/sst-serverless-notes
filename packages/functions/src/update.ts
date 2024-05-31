@@ -1,8 +1,8 @@
-import type { APIGatewayProxyEventV2 } from 'aws-lambda'
+import type { APIGatewayProxyEvent } from 'aws-lambda'
 import { updateItem } from "@notes/core/dynamodb"
 import handler from "@notes/core/handler"
 
-async function updateNote(event: APIGatewayProxyEventV2) {
+async function updateNote(event: APIGatewayProxyEvent) {
   if (!event.body) {
     return JSON.stringify({ error: 'No event body' })
   }
@@ -11,7 +11,7 @@ async function updateNote(event: APIGatewayProxyEventV2) {
 
   const response = await updateItem({
     Key: {
-      userId: '123',
+      userId: event.requestContext.authorizer?.iam.cognitoIdentity.identityId,
       noteId: event?.pathParameters?.id
     },
     UpdateExpression: 'SET content = :content, attachment = :attachment',
