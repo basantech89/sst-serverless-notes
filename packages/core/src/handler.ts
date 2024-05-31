@@ -12,6 +12,13 @@ export default function handler(lambda: (event: APIGatewayProxyEvent, context: C
       statusCode = 500;
     }
 
-    return { body, statusCode }
+    return { 
+      body, 
+      statusCode,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Credentials": true,
+      },
+    }
   }
 }
